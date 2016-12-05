@@ -1,0 +1,24 @@
+{
+  "guard1":{
+        "type": 1,
+        "spped":2,
+        "vison":{"l":15, "r":10},
+        "path":[
+          {
+            "corX":{
+              "x":10,
+              "y":10
+            },
+            "faceDirection":{
+              "x":50,
+              "y":50
+            },
+            "staytime":3,
+          },
+          {
+
+          },
+        ],
+        
+  },
+}
