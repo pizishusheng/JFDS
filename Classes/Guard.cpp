@@ -7,3 +7,9 @@
 //
 
 #include "Guard.hpp"
+
+Guard* Guard::create()
+{
+    Path* path = new Path();
+    path->m_staytime = 1;
+}

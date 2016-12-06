@@ -1,24 +1,100 @@
 {
-  "guard1":{
-        "type": 1,
-        "spped":2,
-        "vison":{"l":15, "r":10},
-        "path":[
-          {
-            "corX":{
-              "x":10,
-              "y":10
-            },
-            "faceDirection":{
-              "x":50,
-              "y":50
-            },
-            "staytime":3,
-          },
-          {
-
-          },
-        ],
-        
-  },
+  "guard":[
+    {
+      "type": 1,    
+      "speed":2,
+      "vison":{"l":15, "r":10},
+      "born":{"x":10, "y":10},
+      "path":[
+        {
+          "faceDirection":{"x":50,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":15,"y":90},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":10},
+          "staytime":3
+        }
+      ]
+    },
+    {
+      "type": 2,    
+      "speed":2,
+      "vison":{"l":15, "r":10},
+      "born":{"x":10, "y":10},
+      "path":[
+        {
+          "faceDirection":{"x":50,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":15,"y":90},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":10},
+          "staytime":3
+        }
+      ]
+    },
+    {
+      "type": 3,    
+      "speed":2,
+      "vison":{"l":15, "r":10},
+      "born":{"x":10, "y":10},
+      "path":[
+        {
+          "faceDirection":{"x":50,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":15,"y":90},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":10},
+          "staytime":3
+        }
+      ]
+    },
+    {
+      "type": 4,    
+      "speed":2,
+      "vison":{"l":15, "r":10},
+      "born":{"x":10, "y":10},
+      "path":[
+        {
+          "faceDirection":{"x":50,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":15,"y":90},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":50},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":10,"y":10},
+          "staytime":3
+        }
+      ]
+    }
+  ]
 }

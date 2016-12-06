@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "LoadConfigManager.hpp"
 
 USING_NS_CC;
 
@@ -33,11 +34,13 @@ bool HelloWorld::init()
     listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
+    LoadConfigManager::getInstance()->loadChapterConfig("chapter/chaper_1.json");
+    
     // 加载地图
     m_map = TMXTiledMap::create("res/text1-1.tmx");
     m_map->setAnchorPoint(Vec2(0.5f, 0.5f));
     m_map->setPosition(center);
-    this->addChild(m_map, 0);
+    //this->addChild(m_map, 0);
     
     m_begin = Vec2(0, 0);
     

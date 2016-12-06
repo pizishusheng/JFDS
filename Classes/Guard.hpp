@@ -10,14 +10,35 @@
 #define Guard_hpp
 
 #include <stdio.h>
+#include "cocos2d.h"
+#include "Chapter.hpp"
 
-class Guard
+USING_NS_CC;
+
+class Path : public Ref
 {
 public:
+    friend class Guard;
+    CREATE_FUNC(Path);
+    bool init();
 private:
-    int m_PositionX;
-    int m_PositionY;
-    
+    Vec2 m_faceDirection;
+    float m_staytime;
+};
+
+class Guard : public Ref
+{
+public:
+    friend class Chapter;
+    CREATE_FUNC(Guard);
+    bool init();
+protected:
+    uint m_type;
+    float m_speed;
+    Vec2 m_born;
+    float m_visonL;
+    float m_visonR;
+    std::vector<Path> m_path;
 };
 
 #endif /* Guard_hpp */
