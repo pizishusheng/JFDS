@@ -17,7 +17,6 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     void readBtnCallback(cocos2d::Ref* pSender);
     
-    
     CREATE_FUNC(HelloWorld);
 private:
     Vec2 m_begin;

@@ -19,14 +19,23 @@ enum class GuardType
     GUARD_THREE
 };
 
+enum class GuardActionType
+{
+    ACTION_IDLE,
+    ACTION_WALK
+};
+
 class Guard;
 
 class GuardRole : public Sprite
 {
 public:
-    GuardRole* creatWithGuard(Guard &pGuard);
-    bool initWithGuard(Guard &pGuard);
+    static GuardRole* creatWithGuard(Guard *pGuard);
+    bool initWithGuard(Guard *pGuard);
     void initAnimationWithType(GuardType pType);
+    
+    void walkTo(Vec2 pDest);
+    void playAnimation(GuardActionType pType);
 private:
     Guard *m_guard;
     string m_name;

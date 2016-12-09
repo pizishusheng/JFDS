@@ -23,6 +23,7 @@ public:
     friend class LoadConfigManager;
     CREATE_FUNC(Path);
     bool init();
+    Vec2 getFaceDirection();
 private:
     Vec2 m_faceDirection;
     float m_staytime;

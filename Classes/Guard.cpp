@@ -18,6 +18,11 @@ bool Path::init()
 {
     return true;
 }
+
+Vec2 Path::getFaceDirection()
+{
+    return m_faceDirection;
+}
 /*************Path----end*****************/
 
 
@@ -42,5 +47,14 @@ float Guard::getSpeed()
     return m_speed;
 }
 
+Vec2 Guard::getBorn()
+{
+    return m_born;
+}
+
+vector<Path*> Guard::getPath()
+{
+    return m_path;
+}
 
 /*************Guard----end*****************/

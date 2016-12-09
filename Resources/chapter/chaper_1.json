@@ -4,7 +4,7 @@
       "type": 1,    
       "speed":2,
       "vison":{"l":15, "r":10},
-      "born":{"x":10, "y":10},
+      "born":{"x":-30, "y":30},
       "path":[
         {
           "faceDirection":{"x":50,"y":50},
@@ -28,7 +28,7 @@
       "type": 2,    
       "speed":2,
       "vison":{"l":15, "r":10},
-      "born":{"x":10, "y":10},
+      "born":{"x":30, "y":60},
       "path":[
         {
           "faceDirection":{"x":50,"y":50},
@@ -52,7 +52,7 @@
       "type": 3,    
       "speed":2,
       "vison":{"l":15, "r":10},
-      "born":{"x":10, "y":10},
+      "born":{"x":60, "y":90},
       "path":[
         {
           "faceDirection":{"x":50,"y":50},

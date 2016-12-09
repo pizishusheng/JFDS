@@ -359,7 +359,7 @@ public:
     bool isFlippedX() const;
     /**
      * Sets whether the sprite should be flipped horizontally or not.
-     *
+     *setFlippedX
      * @param flippedX true if the sprite should be flipped horizontally, false otherwise.
      */
     void setFlippedX(bool flippedX);

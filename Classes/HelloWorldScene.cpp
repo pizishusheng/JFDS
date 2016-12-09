@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "LoadConfigManager.hpp"
+#include "GuardRole.hpp"
 
 USING_NS_CC;
 
@@ -33,9 +34,12 @@ bool HelloWorld::init()
     m_map = TMXTiledMap::create("res/text1-1.tmx");
     m_map->setAnchorPoint(Vec2(0.5f, 0.5f));
     m_map->setPosition(center);
-    //this->addChild(m_map, 0);  test1
+    this->addChild(m_map, 0);
     
    // m_begin = Vec2(0, 0);
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile
+    ("res/role.plist", "res/role.pvr.ccz");
     
     MenuItemImage* closeItem = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
@@ -96,9 +100,17 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::readBtnCallback(Ref* pSender)
 {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    Vec2 center = Vec2(visibleSize.width*0.5 + origin.x, visibleSize.height*0.5 + origin.y);
     vector<Guard*> guardVector = LoadConfigManager::getInstance()->getChapterConfig();
     for (auto itr = guardVector.begin(); itr != guardVector.end(); itr++) {
         Guard *guard = *itr;
         log("type=%u\n", guard->getType());
+        GuardRole *role = GuardRole::creatWithGuard(guard);
+        role->setPosition(guard->getBorn() + center);
+        Path *path = guard->getPath().at(0);
+        role->walkTo(path->getFaceDirection());
+        this->addChild(role, 99);
     }
 }
