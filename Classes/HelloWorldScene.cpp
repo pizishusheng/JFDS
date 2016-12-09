@@ -33,7 +33,7 @@ bool HelloWorld::init()
     m_map = TMXTiledMap::create("res/text1-1.tmx");
     m_map->setAnchorPoint(Vec2(0.5f, 0.5f));
     m_map->setPosition(center);
-    //this->addChild(m_map, 0);
+    //this->addChild(m_map, 0);  test1
     
    // m_begin = Vec2(0, 0);
     
