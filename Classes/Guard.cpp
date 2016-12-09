@@ -8,8 +8,39 @@
 
 #include "Guard.hpp"
 
-Guard* Guard::create()
+/*************Path----begin*****************/
+Path::~Path()
 {
-    Path* path = new Path();
-    path->m_staytime = 1;
+    log("执行path  析构函数！！！");
 }
+
+bool Path::init()
+{
+    return true;
+}
+/*************Path----end*****************/
+
+
+/*************Guard----begin*****************/
+Guard::~Guard()
+{
+    log("执行guard   析构函数！！！");
+}
+
+bool Guard::init()
+{
+    return true;
+}
+
+uint Guard::getType()
+{
+    return m_type;
+}
+
+float Guard::getSpeed()
+{
+    return m_speed;
+}
+
+
+/*************Guard----end*****************/

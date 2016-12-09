@@ -11,14 +11,16 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
-#include "Chapter.hpp"
+#include "LoadConfigManager.hpp"
 
 USING_NS_CC;
 
 class Path : public Ref
 {
 public:
-    friend class Guard;
+    
+    ~Path();
+    friend class LoadConfigManager;
     CREATE_FUNC(Path);
     bool init();
 private:
@@ -29,16 +31,23 @@ private:
 class Guard : public Ref
 {
 public:
-    friend class Chapter;
+    ~Guard();
+    friend class LoadConfigManager;
     CREATE_FUNC(Guard);
     bool init();
+    uint getType();
+    float getSpeed();
+    Vec2 getBorn();
+    float getVisonL();
+    float getVisonR();
+    std::vector<Path*> getPath();
 protected:
     uint m_type;
     float m_speed;
     Vec2 m_born;
     float m_visonL;
     float m_visonR;
-    std::vector<Path> m_path;
+    std::vector<Path*> m_path;
 };
 
 #endif /* Guard_hpp */

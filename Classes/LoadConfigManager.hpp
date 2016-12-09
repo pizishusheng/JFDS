@@ -16,12 +16,15 @@
 USING_NS_CC;
 using namespace std;
 
+class Guard;
+
 class LoadConfigManager
 {
 public:
     static LoadConfigManager* getInstance();
     bool init();
     void loadChapterConfig(const std::string& pFile);
+    vector<Guard*> getChapterConfig();
 private:
     vector<Guard*> m_chapterVector;
 };

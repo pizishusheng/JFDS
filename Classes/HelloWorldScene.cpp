@@ -27,14 +27,7 @@ bool HelloWorld::init()
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    Vec2 center = Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y);
-    
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
-    LoadConfigManager::getInstance()->loadChapterConfig("chapter/chaper_1.json");
+    Vec2 center = Vec2(visibleSize.width*0.5 + origin.x, visibleSize.height*0.5 + origin.y);
     
     // 加载地图
     m_map = TMXTiledMap::create("res/text1-1.tmx");
@@ -42,15 +35,31 @@ bool HelloWorld::init()
     m_map->setPosition(center);
     //this->addChild(m_map, 0);
     
-    m_begin = Vec2(0, 0);
+   // m_begin = Vec2(0, 0);
     
+    MenuItemImage* closeItem = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+                                origin.y + closeItem->getContentSize().height/2));
+    
+    MenuItemImage* readItem = MenuItemImage::create("CloseSelected.png", "CloseSelected.png", CC_CALLBACK_1(HelloWorld::readBtnCallback, this));
+    readItem->setPosition(center);
+    
+    auto menu = Menu::create(closeItem, readItem, NULL);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
+    
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
     return true;
 }
 
 bool HelloWorld::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
     m_begin = pTouch->getLocationInView();
-    return true;
+    return false;
 }
 
 void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event)
@@ -72,7 +81,7 @@ void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event)
     if (curMap.x > Director::getInstance()->getVisibleSize().width) {
         return;
     }
-    
+   
     if(std::abs(distanceX) > 1){
         m_map->setPosition(curMap);
         m_begin = curMap;
@@ -82,9 +91,14 @@ void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event)
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
-    Director::getInstance()->end();
+    LoadConfigManager::getInstance()->loadChapterConfig("chapter/chaper_1.json");
+}
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+void HelloWorld::readBtnCallback(Ref* pSender)
+{
+    vector<Guard*> guardVector = LoadConfigManager::getInstance()->getChapterConfig();
+    for (auto itr = guardVector.begin(); itr != guardVector.end(); itr++) {
+        Guard *guard = *itr;
+        log("type=%u\n", guard->getType());
+    }
 }
