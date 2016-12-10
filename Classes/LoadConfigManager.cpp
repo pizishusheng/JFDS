@@ -31,6 +31,12 @@ bool LoadConfigManager::init()
 
 void LoadConfigManager::loadChapterConfig(const std::string &pFile)
 {
+    if(m_loadedFileMap[pFile]){
+        log("该文件已经加载过了");
+        return ;
+    }
+    
+    
     string content = FileUtils::getInstance()->getStringFromFile(pFile);
     log("path =========%s", content.c_str());
     rapidjson::Document doc;
@@ -76,6 +82,7 @@ void LoadConfigManager::loadChapterConfig(const std::string &pFile)
             }
         }
     }
+    m_loadedFileMap[pFile] = true;
 }
 
 vector<Guard*> LoadConfigManager::getChapterConfig()

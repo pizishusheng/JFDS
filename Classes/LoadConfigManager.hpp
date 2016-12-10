@@ -27,6 +27,7 @@ public:
     vector<Guard*> getChapterConfig();
 private:
     vector<Guard*> m_chapterVector;
+    map<string, bool> m_loadedFileMap;
 };
 
 #endif /* LoadConfigManager_hpp */
