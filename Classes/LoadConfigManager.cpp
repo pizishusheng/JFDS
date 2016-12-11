@@ -36,7 +36,6 @@ void LoadConfigManager::loadChapterConfig(const std::string &pFile)
         return ;
     }
     
-    
     string content = FileUtils::getInstance()->getStringFromFile(pFile);
     log("path =========%s", content.c_str());
     rapidjson::Document doc;

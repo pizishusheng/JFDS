@@ -27,7 +27,6 @@ bool GuardRole::initWithGuard(Guard *pGuard)
     m_guard = pGuard;
     
     initAnimationWithType(GuardType::GUARD_TWO);
-    playAnimation(GuardActionType::ACTION_WALK);
     return true;
 }
 
@@ -52,8 +51,8 @@ void GuardRole::initAnimationWithType(GuardType pType)
     this->initWithSpriteFrameName(sfName);
     auto animation = Animation::create();
     animation->setDelayPerUnit(0.2f);
-    for (int i = 0; i < 3; i++) {
-        animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("enemy1-1-%d.png", i + 1)->getCString()));
+    for (int i = 1; i < 4; i++) {
+        animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("enemy1-1-%d.png", i)->getCString()));
     }
     AnimationCache::getInstance()->addAnimation(animation, "enemy1-walk");
 }
@@ -64,7 +63,8 @@ void GuardRole::walkTo(cocos2d::Vec2 pDest)
     auto curPos = this->getPosition();
     
     if (curPos.x > pDest.x) {
-        this->setFlippedX(true);
+       // this->setFlippedX(true);
+        this->setScaleX(this->getScaleX() * -1);
     }else{
         this->setFlippedX(false);
     }
@@ -78,28 +78,28 @@ void GuardRole::walkTo(cocos2d::Vec2 pDest)
         this->stopAllActions();
     };
     
-    
     auto callback = CallFunc::create(func);
     auto seq = Sequence::create(move, callback, nullptr);
     
-    auto animation = AnimationCache::getInstance()->getAnimation("enemy1-walk");
-    auto animate = Animate::create(animation);
-    
-    auto sp = Spawn::create(animate, seq,nullptr);
+    auto animate = getAnimationWithType(GuardActionType::ACTION_WALK);
+    if(animate == nullptr)
+        return;
+    animate->retain();
+    auto sp = Spawn::create(animate, nullptr);
     auto ac = RepeatForever::create(sp);
     this->runAction(ac);
+    this->runAction(seq);
 }
 
-void GuardRole::playAnimation(GuardActionType pType)
+Animate* GuardRole::getAnimationWithType(GuardActionType pType)
 {
-    if (pType == GuardActionType::ACTION_WALK) {
-        auto animation = AnimationCache::getInstance()->getAnimation("enemy1-walk");
-        auto animate = Animate::create(animation);
-        
-        auto sp = Spawn::create(animate, nullptr);
-        auto ac = RepeatForever::create(sp);
-        this->runAction(ac);
+    Animation* animation = nullptr;
+    Animate* animate = nullptr;
+    if (pType == GuardActionType::ACTION_WALK){
+        animation = AnimationCache::getInstance()->getAnimation("enemy1-walk");
+        animate = Animate::create(animation);
     }
+    return animate;
 }
 
 

@@ -36,7 +36,7 @@ bool HelloWorld::init()
     m_map->setPosition(center);
     this->addChild(m_map, 0);
     
-   // m_begin = Vec2(0, 0);
+    m_begin = Vec2(0, 0);
     
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile
     ("res/role.plist", "res/role.pvr.ccz");
@@ -62,7 +62,10 @@ bool HelloWorld::init()
 
 bool HelloWorld::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
-    m_begin = pTouch->getLocationInView();
+   // m_begin = pTouch->getLocationInView();
+    m_begin = pTouch->getLocation();
+    GuardRole *role = (GuardRole*) this->getChildByTag(1);
+    role->walkTo(m_begin);
     return false;
 }
 
@@ -72,8 +75,8 @@ void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event)
     float prePosY = m_begin.y;
     
     // 当前触摸点坐标
-    float curPosX = touch->getLocationInView().x;
-    float curPosY = touch->getLocationInView().y;
+    float curPosX = touch->getLocation().x;
+    float curPosY = touch->getLocation().y;
     
     // 计算触摸点与开始触摸时的差值
     float distanceX = curPosX - prePosX;
@@ -104,13 +107,15 @@ void HelloWorld::readBtnCallback(Ref* pSender)
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     Vec2 center = Vec2(visibleSize.width*0.5 + origin.x, visibleSize.height*0.5 + origin.y);
     vector<Guard*> guardVector = LoadConfigManager::getInstance()->getChapterConfig();
+    int i = 1;
     for (auto itr = guardVector.begin(); itr != guardVector.end(); itr++) {
         Guard *guard = *itr;
         log("type=%u\n", guard->getType());
         GuardRole *role = GuardRole::creatWithGuard(guard);
         role->setPosition(guard->getBorn() + center);
         Path *path = guard->getPath().at(0);
-        role->walkTo(path->getFaceDirection());
+       // role->walkTo(path->getFaceDirection());
+        role->setTag(i++);
         this->addChild(role, 99);
     }
 }

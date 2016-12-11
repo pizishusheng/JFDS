@@ -35,7 +35,7 @@ public:
     void initAnimationWithType(GuardType pType);
     
     void walkTo(Vec2 pDest);
-    void playAnimation(GuardActionType pType);
+    Animate* getAnimationWithType(GuardActionType pType);
 private:
     Guard *m_guard;
     string m_name;
