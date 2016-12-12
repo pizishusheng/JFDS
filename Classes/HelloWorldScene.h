@@ -20,7 +20,7 @@ public:
     CREATE_FUNC(HelloWorld);
 private:
     Vec2 m_begin;
-    TMXTiledMap *m_map;
+    experimental::TMXTiledMap *m_fastMap;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

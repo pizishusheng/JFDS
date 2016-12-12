@@ -31,10 +31,10 @@ bool HelloWorld::init()
     Vec2 center = Vec2(visibleSize.width*0.5 + origin.x, visibleSize.height*0.5 + origin.y);
     
     // 加载地图
-    m_map = TMXTiledMap::create("res/text1-1.tmx");
-    m_map->setAnchorPoint(Vec2(0.5f, 0.5f));
-    m_map->setPosition(center);
-    this->addChild(m_map, 0);
+    m_fastMap = experimental::TMXTiledMap::create("res/text1-1.tmx");//TMXTiledMap::create("res/text1-1.tmx");
+    m_fastMap->setAnchorPoint(Vec2(0.5f, 0.5f));
+    m_fastMap->setPosition(center);
+    this->addChild(m_fastMap, 0);
     
     m_begin = Vec2(0, 0);
     
@@ -62,38 +62,16 @@ bool HelloWorld::init()
 
 bool HelloWorld::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
-   // m_begin = pTouch->getLocationInView();
-    m_begin = pTouch->getLocation();
-    GuardRole *role = (GuardRole*) this->getChildByTag(1);
-    role->walkTo(m_begin);
-    return false;
+    return true;
 }
 
 void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event)
 {
-    float prePosX = m_begin.x;
-    float prePosY = m_begin.y;
-    
-    // 当前触摸点坐标
-    float curPosX = touch->getLocation().x;
-    float curPosY = touch->getLocation().y;
-    
-    // 计算触摸点与开始触摸时的差值
-    float distanceX = curPosX - prePosX;
-    float distanceY = curPosY - prePosY;
+    auto diff = touch->getDelta();
     // 地图之前的坐标
-    Vec2 preMap = m_map->getPosition();
-    Vec2 curMap = Vec2(preMap.x + distanceX, preMap.y);
-    
-    if (curMap.x > Director::getInstance()->getVisibleSize().width) {
-        return;
-    }
-   
-    if(std::abs(distanceX) > 1){
-        m_map->setPosition(curMap);
-        m_begin = curMap;
-    }
-    
+    Vec2 preMap = m_fastMap->getPosition();
+    Vec2 curMap = preMap + diff;
+    m_fastMap->setPosition(curMap);
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
