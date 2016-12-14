@@ -28,11 +28,16 @@ bool GuardRole::initWithGuard(Guard *pGuard)
     m_guard = pGuard;
     this->setAnchorPoint(Vec2(0.5f, 0.5f));
     initAnimationWithType(GuardType::GUARD_TWO);
-    //initSector();
+    initSector();
     
-    auto test = Sprite::create("CloseNormal.png");
-    test->setPosition(this->getContentSize() * 0.5);
-    this->addChild(test);
+    Rect frame = this->getSpriteFrame()->getRect();
+    CCLOG("frame=%f-----%f", frame.size.width, frame.size.height);
+    log("size = %f-----%f", this->getContentSize().width, this->getContentSize().height);
+    log("bounding = %f -------%f", this->getBoundingBox().size.width, this->getBoundingBox().size.height);
+    
+//    auto test = Sprite::create("CloseNormal.png");
+//    test->setPosition(this->getContentSize() * 0.5);
+//    this->addChild(test);
     return true;
 }
 
@@ -46,7 +51,7 @@ void GuardRole::initAnimationWithType(GuardType pType)
             m_name = "player1";
             break;
         case GuardType::GUARD_TWO:
-            sfName = "enemy1-1-1.png";
+            sfName = "magician_b_walk_00.png";
             m_name = "enemy1";
             break;
         case GuardType::GUARD_THREE:
@@ -57,8 +62,8 @@ void GuardRole::initAnimationWithType(GuardType pType)
     this->initWithSpriteFrameName(sfName);
     auto animation = Animation::create();
     animation->setDelayPerUnit(0.2f);
-    for (int i = 1; i < 4; i++) {
-        animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("enemy1-1-%d.png", i)->getCString()));
+    for (int i = 0; i < 16; i++) {
+        animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("magician_b_walk_%02d.png", i)->getCString()));
     }
     AnimationCache::getInstance()->addAnimation(animation, "enemy1-walk");
 }
@@ -67,18 +72,18 @@ void GuardRole::initSector()
 {
     auto drawNode = DrawSector::create();
     drawNode->setAnchorPoint(Vec2(0, 0));
-    float radian = 60.0f;
+    float radian = 20.0f;
     //扇形半径
-    float RADIUS = 100.0f;
+    float RADIUS = 50.0f;
     //坐标偏移量
-    float beginVec = 0.0f;
+    float beginVec = 90.0f * M_PI / 180.0f;
     //颜色
     float r = rand_0_1();
     float g = rand_0_1();
     float b = rand_0_1();
     
-    drawNode->drawSolidSector(Vec2(100, 100), Vec2(sin(beginVec), cosf(beginVec)), RADIUS, 0, radian * M_PI / 180.0f, 200, Color4F(r, g, b, 1));
-    //drawNode->setPosition(this->getContentSize());
+    drawNode->drawSolidSector(Vec2(0, 0), Vec2(sin(beginVec), cosf(beginVec)), RADIUS, 0, radian * M_PI / 180.0f, 200, Color4F(r, g, b, 1));
+    drawNode->setPosition(this->getContentSize() * 0.5);
     this->addChild(drawNode, 88);
 }
 

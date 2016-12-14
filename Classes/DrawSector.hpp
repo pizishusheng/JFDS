@@ -22,6 +22,10 @@ public:
      *beginVec: 
      **/
     CREATE_FUNC(DrawSector);
+    /*
+     * orign : 起点
+     * beginVec
+     */
     void drawSolidSector(const Vec2 &orign,const Vec2 &beginVec, const float radius1, const float radius2, const float radian, const int segments, const cocos2d::Color4F &color);
 };
 

@@ -38,8 +38,10 @@ bool HelloWorld::init()
     
     m_begin = Vec2(0, 0);
     
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile
+//    ("res/role.plist", "res/role.pvr.ccz");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile
-    ("res/role.plist", "res/role.pvr.ccz");
+    ("res/army02.plist", "res/army02.png");
     
     MenuItemImage* closeItem = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
@@ -93,7 +95,7 @@ void HelloWorld::readBtnCallback(Ref* pSender)
         GuardRole *role = GuardRole::creatWithGuard(guard);
         role->setPosition(guard->getBorn());
         Path *path = guard->getPath().at(0);
-       // role->walkTo(path->getFaceDirection());
+        role->walkTo(path->getFaceDirection());
         role->setTag(i++);
         m_fastMap->addChild(role, 99);
     }
