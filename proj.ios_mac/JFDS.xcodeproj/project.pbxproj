@@ -12,6 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		2B97A3DB1E00FF0E00C1D74F /* DrawSector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B97A3D91E00FF0E00C1D74F /* DrawSector.cpp */; };
 		2BADB47C1DF55522007441F7 /* Guard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BADB47A1DF55522007441F7 /* Guard.cpp */; };
 		2BADB4801DF67806007441F7 /* LoadConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BADB47E1DF67806007441F7 /* LoadConfigManager.cpp */; };
 		2BADB4821DF6A640007441F7 /* chapter in Resources */ = {isa = PBXBuildFile; fileRef = 2BADB4811DF6A640007441F7 /* chapter */; };
@@ -121,6 +122,8 @@
 		1D6058910D05DD3D006BFB54 /* JFDS-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JFDS-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2B97A3D91E00FF0E00C1D74F /* DrawSector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawSector.cpp; sourceTree = "<group>"; };
+		2B97A3DA1E00FF0E00C1D74F /* DrawSector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DrawSector.hpp; sourceTree = "<group>"; };
 		2BADB47A1DF55522007441F7 /* Guard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Guard.cpp; sourceTree = "<group>"; };
 		2BADB47B1DF55522007441F7 /* Guard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Guard.hpp; sourceTree = "<group>"; };
 		2BADB47E1DF67806007441F7 /* LoadConfigManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadConfigManager.cpp; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
+				2B97A3D91E00FF0E00C1D74F /* DrawSector.cpp */,
+				2B97A3DA1E00FF0E00C1D74F /* DrawSector.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -556,6 +561,7 @@
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				2BADB4891DF97E82007441F7 /* GuardRole.cpp in Sources */,
+				2B97A3DB1E00FF0E00C1D74F /* DrawSector.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);

@@ -33,6 +33,7 @@ public:
     static GuardRole* creatWithGuard(Guard *pGuard);
     bool initWithGuard(Guard *pGuard);
     void initAnimationWithType(GuardType pType);
+    void initSector();
     
     void walkTo(Vec2 pDest);
     Animate* getAnimationWithType(GuardActionType pType);
