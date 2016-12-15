@@ -59,6 +59,7 @@ void LoadConfigManager::loadChapterConfig(const std::string &pFile)
                 const rapidjson::Value& visonJson = guard["vison"];
                 guardModel->m_visonL = visonJson["l"].GetDouble();
                 guardModel->m_visonR = visonJson["r"].GetDouble();
+                guardModel->m_visonA = visonJson["a"].GetDouble();
                 
                 const rapidjson::Value& bornJson = guard["born"];
                 guardModel->m_born = Vec2(bornJson["x"].GetDouble(), bornJson["y"].GetDouble());

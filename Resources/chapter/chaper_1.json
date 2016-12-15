@@ -2,81 +2,9 @@
   "guard":[
     {
       "type": 1,    
-      "speed":2,
-      "vison":{"l":15, "r":10},
-      "born":{"x":30, "y":30},
-      "path":[
-        {
-          "faceDirection":{"x":50,"y":50},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":15,"y":90},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":10,"y":50},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":10,"y":10},
-          "staytime":3
-        }
-      ]
-    },
-    {
-      "type": 2,    
-      "speed":2,
-      "vison":{"l":15, "r":10},
-      "born":{"x":30, "y":360},
-      "path":[
-        {
-          "faceDirection":{"x":50,"y":50},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":15,"y":90},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":10,"y":50},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":10,"y":10},
-          "staytime":3
-        }
-      ]
-    },
-    {
-      "type": 3,    
-      "speed":2,
-      "vison":{"l":15, "r":10},
-      "born":{"x":360, "y":30},
-      "path":[
-        {
-          "faceDirection":{"x":50,"y":50},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":15,"y":90},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":10,"y":50},
-          "staytime":3
-        },
-        {
-          "faceDirection":{"x":10,"y":10},
-          "staytime":3
-        }
-      ]
-    },
-    {
-      "type": 4,    
-      "speed":2,
-      "vison":{"l":15, "r":10},
-      "born":{"x":360, "y":360},
+      "speed":10,
+      "vison":{"l":60, "r":30, "a":-10},
+      "born":{"x":500, "y":500},
       "path":[
         {
           "faceDirection":{"x":50,"y":50},

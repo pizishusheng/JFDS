@@ -57,4 +57,19 @@ vector<Path*> Guard::getPath()
     return m_path;
 }
 
+float Guard::getVisonL()
+{
+    return m_visonL;
+}
+
+float Guard::getVisonR()
+{
+    return m_visonR;
+}
+
+float Guard::getVisonA()
+{
+    return m_visonA;
+}
+
 /*************Guard----end*****************/

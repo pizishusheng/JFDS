@@ -93,7 +93,6 @@ void HelloWorld::readBtnCallback(Ref* pSender)
         Guard *guard = *itr;
         log("type=%u\n", guard->getType());
         GuardRole *role = GuardRole::creatWithGuard(guard);
-        role->setPosition(guard->getBorn());
         Path *path = guard->getPath().at(0);
         role->walkTo(path->getFaceDirection());
         role->setTag(i++);

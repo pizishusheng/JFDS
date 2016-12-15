@@ -41,6 +41,7 @@ public:
     Vec2 getBorn();
     float getVisonL();
     float getVisonR();
+    float getVisonA();
     std::vector<Path*> getPath();
 protected:
     uint m_type;
@@ -48,6 +49,7 @@ protected:
     Vec2 m_born;
     float m_visonL;
     float m_visonR;
+    float m_visonA;
     std::vector<Path*> m_path;
 };
 

@@ -27,8 +27,9 @@ bool GuardRole::initWithGuard(Guard *pGuard)
     //setScale(0.7f);
     m_guard = pGuard;
     this->setAnchorPoint(Vec2(0.5f, 0.5f));
+    this->setPosition(m_guard->getBorn());
     initAnimationWithType(GuardType::GUARD_TWO);
-    initSector();
+    initSector(m_guard->getVisonL(), m_guard->getVisonR(), m_guard->getVisonA());
     
     Rect frame = this->getSpriteFrame()->getRect();
     CCLOG("frame=%f-----%f", frame.size.width, frame.size.height);
@@ -68,24 +69,19 @@ void GuardRole::initAnimationWithType(GuardType pType)
     AnimationCache::getInstance()->addAnimation(animation, "enemy1-walk");
 }
 
-void GuardRole::initSector()
+void GuardRole::initSector(float pL, float pR, float pA)
 {
     auto drawNode = DrawSector::create();
     drawNode->setAnchorPoint(Vec2(0, 0));
-    float radian = 20.0f;
-    //扇形半径
-    float RADIUS = 50.0f;
-    //坐标偏移量
-    float beginVec = 90.0f * M_PI / 180.0f;
-    //颜色
-    float r = rand_0_1();
-    float g = rand_0_1();
-    float b = rand_0_1();
-    
-    drawNode->drawSolidSector(Vec2(0, 0), Vec2(sin(beginVec), cosf(beginVec)), RADIUS, 0, radian * M_PI / 180.0f, 200, Color4F(r, g, b, 1));
+    float radian = pL;    // 扇形弧度
+    float RADIUS = pR;   //扇形半径
+    float beginVec = pA * M_PI / 180.0f;  //  角度
+
+    drawNode->drawSolidSector(Vec2(0, -15), Vec2(sin(beginVec), cosf(beginVec)), RADIUS, 0, radian * M_PI / 180.0f, 200, Color4F(118, 274, 120, 0.5));
     drawNode->setPosition(this->getContentSize() * 0.5);
     this->addChild(drawNode, 88);
 }
+
 
 void GuardRole::walkTo(cocos2d::Vec2 pDest)
 {
@@ -93,14 +89,14 @@ void GuardRole::walkTo(cocos2d::Vec2 pDest)
     auto curPos = this->getPosition();
     
     if (curPos.x > pDest.x) {
-       // this->setFlippedX(true);
-        this->setScaleX(this->getScaleX() * -1);
+        this->setFlippedX(true);
     }else{
         this->setFlippedX(false);
     }
     
     auto diff = pDest - curPos;
-    auto time = diff.getLength()/6;
+    auto speed = m_guard->getSpeed();
+    auto time = diff.getLength() / speed;
     auto move = MoveTo::create(time, pDest);
     //lambda function
     auto func = [&]()
