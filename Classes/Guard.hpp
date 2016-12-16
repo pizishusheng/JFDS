@@ -24,6 +24,7 @@ public:
     CREATE_FUNC(Path);
     bool init();
     Vec2 getFaceDirection();
+    float getStayTime();
 private:
     Vec2 m_faceDirection;
     float m_staytime;

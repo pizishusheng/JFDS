@@ -24,21 +24,16 @@ GuardRole* GuardRole::creatWithGuard(Guard *pGuard)
 
 bool GuardRole::initWithGuard(Guard *pGuard)
 {
-    //setScale(0.7f);
+    if(pGuard == nullptr)
+        return false;
+    
     m_guard = pGuard;
     this->setAnchorPoint(Vec2(0.5f, 0.5f));
     this->setPosition(m_guard->getBorn());
     initAnimationWithType(GuardType::GUARD_TWO);
     initSector(m_guard->getVisonL(), m_guard->getVisonR(), m_guard->getVisonA());
-    
-    Rect frame = this->getSpriteFrame()->getRect();
-    CCLOG("frame=%f-----%f", frame.size.width, frame.size.height);
-    log("size = %f-----%f", this->getContentSize().width, this->getContentSize().height);
-    log("bounding = %f -------%f", this->getBoundingBox().size.width, this->getBoundingBox().size.height);
-    
-//    auto test = Sprite::create("CloseNormal.png");
-//    test->setPosition(this->getContentSize() * 0.5);
-//    this->addChild(test);
+    initWalkAction();
+    autoWalk();
     return true;
 }
 
@@ -82,9 +77,52 @@ void GuardRole::initSector(float pL, float pR, float pA)
     this->addChild(drawNode, 88);
 }
 
+void GuardRole::initWalkAction()
+{
+    vector<Path*> pathVec = m_guard->getPath();
+    
+    for (auto itr = pathVec.begin(); itr != pathVec.end(); ++itr) {
+        Path *path = *itr;
+        
+        auto callback = CallFunc::create(CC_CALLBACK_0(GuardRole::walkTo, this, path->getFaceDirection()));
+        m_walkAction.push_back(callback);
+        this->m_stayTime = path->getStayTime();
+    }
+
+}
+
+void GuardRole::autoWalk()
+{
+    CallFunc *func1;
+    CallFunc *func2;
+    CallFunc *func3;
+    CallFunc *func4;
+    for (int i = 0; i < m_walkAction.size(); ++i) {
+        switch (i) {
+            case 0:
+                func1 = m_walkAction[0];
+                break;
+            case 1:
+                func2 = m_walkAction[1];
+                break;
+            case 2:
+                func3 = m_walkAction[2];
+                break;
+            case 3:
+                func4 = m_walkAction[3];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    auto squeue = Sequence::create(func1, func2, func3, NULL);
+    this->runAction(squeue);
+}
 
 void GuardRole::walkTo(cocos2d::Vec2 pDest)
 {
+    log("walk to (%f, %f)", pDest.x, pDest.y);
     this->stopAllActions();
     auto curPos = this->getPosition();
     
@@ -98,7 +136,7 @@ void GuardRole::walkTo(cocos2d::Vec2 pDest)
     auto speed = m_guard->getSpeed();
     auto time = diff.getLength() / speed;
     auto move = MoveTo::create(time, pDest);
-    //lambda function
+    
     auto func = [&]()
     {
         this->stopAllActions();

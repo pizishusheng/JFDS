@@ -23,6 +23,11 @@ Vec2 Path::getFaceDirection()
 {
     return m_faceDirection;
 }
+
+float Path::getStayTime()
+{
+    return m_staytime;
+}
 /*************Path----end*****************/
 
 

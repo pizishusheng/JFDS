@@ -93,8 +93,6 @@ void HelloWorld::readBtnCallback(Ref* pSender)
         Guard *guard = *itr;
         log("type=%u\n", guard->getType());
         GuardRole *role = GuardRole::creatWithGuard(guard);
-        Path *path = guard->getPath().at(0);
-        role->walkTo(path->getFaceDirection());
         role->setTag(i++);
         m_fastMap->addChild(role, 99);
     }

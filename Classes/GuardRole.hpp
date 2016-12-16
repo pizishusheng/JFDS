@@ -34,6 +34,7 @@ public:
     bool initWithGuard(Guard *pGuard);
     void initAnimationWithType(GuardType pType);
     void initSector(float pL, float pR, float pA);
+    void initWalkAction();
     
     void autoWalk();
     void walkTo(Vec2 pDest);
@@ -43,6 +44,8 @@ private:
     string m_name;
     int m_animationNum;
     std::vector<int> m_animationFrameNum;
+    float m_stayTime;
+    std::vector<CallFunc*> m_walkAction;
 };
 
 #endif /* GuardRole_hpp */

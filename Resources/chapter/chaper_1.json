@@ -7,19 +7,19 @@
       "born":{"x":500, "y":500},
       "path":[
         {
-          "faceDirection":{"x":50,"y":50},
+          "faceDirection":{"x":500,"y":300},
           "staytime":3
         },
         {
-          "faceDirection":{"x":15,"y":90},
+          "faceDirection":{"x":200,"y":300},
           "staytime":3
         },
         {
-          "faceDirection":{"x":10,"y":50},
+          "faceDirection":{"x":200,"y":500},
           "staytime":3
         },
         {
-          "faceDirection":{"x":10,"y":10},
+          "faceDirection":{"x":300,"y":150},
           "staytime":3
         }
       ]
