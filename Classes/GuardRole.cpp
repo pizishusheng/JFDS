@@ -8,7 +8,7 @@
 
 #include "GuardRole.hpp"
 #include "DrawSector.hpp"
-
+#include "editor-support/cocostudio/CCArmatureDataManager.h"
 
 GuardRole* GuardRole::creatWithGuard(Guard *pGuard)
 {
@@ -33,7 +33,7 @@ bool GuardRole::initWithGuard(Guard *pGuard)
     initAnimationWithType(GuardType::GUARD_TWO);
     initSector(m_guard->getVisonL(), m_guard->getVisonR(), m_guard->getVisonA());
     initWalkAction();
-    autoWalk();
+    //autoWalk();
     return true;
 }
 
@@ -47,7 +47,7 @@ void GuardRole::initAnimationWithType(GuardType pType)
             m_name = "player1";
             break;
         case GuardType::GUARD_TWO:
-            sfName = "magician_b_walk_00.png";
+            sfName = "monster1_f1.png";
             m_name = "enemy1";
             break;
         case GuardType::GUARD_THREE:
@@ -58,8 +58,8 @@ void GuardRole::initAnimationWithType(GuardType pType)
     this->initWithSpriteFrameName(sfName);
     auto animation = Animation::create();
     animation->setDelayPerUnit(0.2f);
-    for (int i = 0; i < 16; i++) {
-        animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("magician_b_walk_%02d.png", i)->getCString()));
+    for (int i = 1; i < 4; i++) {
+        animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("monster1_f%d.png", i)->getCString()));
     }
     AnimationCache::getInstance()->addAnimation(animation, "enemy1-walk");
 }
@@ -83,40 +83,12 @@ void GuardRole::initWalkAction()
     
     for (auto itr = pathVec.begin(); itr != pathVec.end(); ++itr) {
         Path *path = *itr;
-        
+        log("x=%f ------ y=%f", path->getFaceDirection().x, path->getFaceDirection().y);
         auto callback = CallFunc::create(CC_CALLBACK_0(GuardRole::walkTo, this, path->getFaceDirection()));
-        m_walkAction.push_back(callback);
+        m_walkAction.pushBack(callback);
         this->m_stayTime = path->getStayTime();
     }
-
-}
-
-void GuardRole::autoWalk()
-{
-    CallFunc *func1;
-    CallFunc *func2;
-    CallFunc *func3;
-    CallFunc *func4;
-    for (int i = 0; i < m_walkAction.size(); ++i) {
-        switch (i) {
-            case 0:
-                func1 = m_walkAction[0];
-                break;
-            case 1:
-                func2 = m_walkAction[1];
-                break;
-            case 2:
-                func3 = m_walkAction[2];
-                break;
-            case 3:
-                func4 = m_walkAction[3];
-                break;
-            default:
-                break;
-        }
-    }
-    
-    auto squeue = Sequence::create(func1, func2, func3, NULL);
+    Sequence* squeue = Sequence::create(m_walkAction);
     this->runAction(squeue);
 }
 
@@ -165,6 +137,7 @@ Animate* GuardRole::getAnimationWithType(GuardActionType pType)
     }
     return animate;
 }
+
 
 
 

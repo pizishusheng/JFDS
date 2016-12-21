@@ -34,14 +34,13 @@ bool HelloWorld::init()
     m_fastMap = experimental::TMXTiledMap::create("res/text1-1.tmx");//TMXTiledMap::create("res/text1-1.tmx");
     m_fastMap->setAnchorPoint(Vec2(0.5f, 0.5f));
     m_fastMap->setPosition(center);
+    m_fastMap->setScale(0.8);
     this->addChild(m_fastMap, 0);
     
     m_begin = Vec2(0, 0);
     
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile
-//    ("res/role.plist", "res/role.pvr.ccz");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile
-    ("res/army02.plist", "res/army02.png");
+    ("res/Guard.plist", "res/Guard.pvr.ccz");
     
     MenuItemImage* closeItem = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,

@@ -3,15 +3,15 @@
     {
       "type": 1,    
       "speed":10,
-      "vison":{"l":60, "r":30, "a":-10},
+      "vison":{"l":60, "r":30, "a":90},
       "born":{"x":500, "y":500},
       "path":[
         {
-          "faceDirection":{"x":500,"y":300},
+          "faceDirection":{"x":200,"y":300},
           "staytime":3
         },
         {
-          "faceDirection":{"x":200,"y":300},
+          "faceDirection":{"x":500,"y":300},
           "staytime":3
         },
         {

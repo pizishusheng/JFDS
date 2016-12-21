@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 #include "Guard.hpp"
+#include "editor-support/cocostudio/CCArmature.h"
+
+using namespace cocostudio;
 
 enum class GuardType
 {
@@ -35,6 +38,7 @@ public:
     void initAnimationWithType(GuardType pType);
     void initSector(float pL, float pR, float pA);
     void initWalkAction();
+    void initFrameAnimation();
     
     void autoWalk();
     void walkTo(Vec2 pDest);
@@ -45,7 +49,7 @@ private:
     int m_animationNum;
     std::vector<int> m_animationFrameNum;
     float m_stayTime;
-    std::vector<CallFunc*> m_walkAction;
+    Vector<FiniteTimeAction*> m_walkAction;
 };
 
 #endif /* GuardRole_hpp */
