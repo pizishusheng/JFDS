@@ -27,13 +27,14 @@ bool GuardRole::initWithGuard(Guard *pGuard)
     if(pGuard == nullptr)
         return false;
     
+    m_isAnimation = true;
+    m_currentPathIndex = 0;
     m_guard = pGuard;
     this->setAnchorPoint(Vec2(0.5f, 0.5f));
     this->setPosition(m_guard->getBorn());
     initAnimationWithType(GuardType::GUARD_TWO);
     initSector(m_guard->getVisonL(), m_guard->getVisonR(), m_guard->getVisonA());
-    initWalkAction();
-    //autoWalk();
+    this->scheduleOnce(schedule_selector(GuardRole::updateNextPostion), 3.0f);
     return true;
 }
 
@@ -77,26 +78,25 @@ void GuardRole::initSector(float pL, float pR, float pA)
     this->addChild(drawNode, 88);
 }
 
-void GuardRole::initWalkAction()
+void GuardRole::updateNextPostion(float delta)
 {
     vector<Path*> pathVec = m_guard->getPath();
-    
-    for (auto itr = pathVec.begin(); itr != pathVec.end(); ++itr) {
-        Path *path = *itr;
-        log("x=%f ------ y=%f", path->getFaceDirection().x, path->getFaceDirection().y);
-        auto callback = CallFunc::create(CC_CALLBACK_0(GuardRole::walkTo, this, path->getFaceDirection()));
-        m_walkAction.pushBack(callback);
-        this->m_stayTime = path->getStayTime();
+    if (m_currentPathIndex < pathVec.size()) {
+        m_nextPosition = pathVec.at(m_currentPathIndex)->getFaceDirection();
+        m_stayTime = pathVec.at(m_currentPathIndex)->getStayTime();
+        m_isAnimation = false;
+    }else{
+        m_currentPathIndex--;
+        m_isAnimation = true;
     }
-    Sequence* squeue = Sequence::create(m_walkAction);
-    this->runAction(squeue);
 }
 
-void GuardRole::walkTo(cocos2d::Vec2 pDest)
+void GuardRole::walkTo(float delta)
 {
-    log("walk to (%f, %f)", pDest.x, pDest.y);
     this->stopAllActions();
     auto curPos = this->getPosition();
+    auto pDest = m_nextPosition;
+    log("walk to (%f, %f)", pDest.x, pDest.y);
     
     if (curPos.x > pDest.x) {
         this->setFlippedX(true);
@@ -112,6 +112,8 @@ void GuardRole::walkTo(cocos2d::Vec2 pDest)
     auto func = [&]()
     {
         this->stopAllActions();
+        m_isAnimation = false;
+        updateNextPostion(1.0f);
     };
     
     auto callback = CallFunc::create(func);
@@ -123,6 +125,7 @@ void GuardRole::walkTo(cocos2d::Vec2 pDest)
     animate->retain();
     auto sp = Spawn::create(animate, nullptr);
     auto ac = RepeatForever::create(sp);
+    
     this->runAction(ac);
     this->runAction(seq);
 }
@@ -138,8 +141,26 @@ Animate* GuardRole::getAnimationWithType(GuardActionType pType)
     return animate;
 }
 
+void GuardRole::update(float delta)
+{
+    if (!m_isAnimation) {
+        this->scheduleOnce(schedule_selector(GuardRole::walkTo), m_stayTime);
+        m_isAnimation = true;
+        m_currentPathIndex++;
+    }
+}
 
+void GuardRole::onEnter()
+{
+    Sprite::onEnter();
+    this->scheduleUpdate();
+}
 
+void GuardRole::onExit()
+{
+    this->unscheduleUpdate();
+    Sprite::onExit();
+}
 
 
 

@@ -15,6 +15,7 @@ public:
     bool onTouchBegan(Touch *pTouch, Event *pEvent);
     void onTouchMoved(Touch *touch, Event *unused_event);
     void menuCloseCallback(cocos2d::Ref* pSender);
+    void loadBtnCallback(cocos2d::Ref* pSender);
     void readBtnCallback(cocos2d::Ref* pSender);
     
     CREATE_FUNC(HelloWorld);

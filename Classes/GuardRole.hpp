@@ -33,15 +33,17 @@ class Guard;
 class GuardRole : public Sprite
 {
 public:
+    virtual void update(float delta);
+    virtual void onEnter();
+    virtual void onExit();
+    
     static GuardRole* creatWithGuard(Guard *pGuard);
     bool initWithGuard(Guard *pGuard);
     void initAnimationWithType(GuardType pType);
     void initSector(float pL, float pR, float pA);
-    void initWalkAction();
-    void initFrameAnimation();
+    void updateNextPostion(float delta);
     
-    void autoWalk();
-    void walkTo(Vec2 pDest);
+    void walkTo(float delta);
     Animate* getAnimationWithType(GuardActionType pType);
 private:
     Guard *m_guard;
@@ -49,7 +51,9 @@ private:
     int m_animationNum;
     std::vector<int> m_animationFrameNum;
     float m_stayTime;
-    Vector<FiniteTimeAction*> m_walkAction;
+    bool m_isAnimation;
+    Vec2 m_nextPosition;
+    int m_currentPathIndex;
 };
 
 #endif /* GuardRole_hpp */

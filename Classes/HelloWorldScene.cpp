@@ -34,7 +34,6 @@ bool HelloWorld::init()
     m_fastMap = experimental::TMXTiledMap::create("res/text1-1.tmx");//TMXTiledMap::create("res/text1-1.tmx");
     m_fastMap->setAnchorPoint(Vec2(0.5f, 0.5f));
     m_fastMap->setPosition(center);
-    m_fastMap->setScale(0.8);
     this->addChild(m_fastMap, 0);
     
     m_begin = Vec2(0, 0);
@@ -46,10 +45,15 @@ bool HelloWorld::init()
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
     
-    MenuItemImage* readItem = MenuItemImage::create("CloseSelected.png", "CloseSelected.png", CC_CALLBACK_1(HelloWorld::readBtnCallback, this));
-    readItem->setPosition(center);
+    auto loadItem = MenuItemFont::create("加载数据", CC_CALLBACK_1(HelloWorld::loadBtnCallback, this));
+    loadItem->setScale(0.5f);
+    loadItem->setPosition(center - Vec2(100, 0));
+
+    auto readItem = MenuItemFont::create("创建守卫", CC_CALLBACK_1(HelloWorld::readBtnCallback, this));
+    readItem->setScale(0.5f);
+    readItem->setPosition(center + Vec2(100, 0));
     
-    auto menu = Menu::create(closeItem, readItem, NULL);
+    auto menu = Menu::create(closeItem, loadItem, readItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
     
@@ -77,6 +81,15 @@ void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event)
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
+{
+    Director::getInstance()->end();
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
+}
+
+void HelloWorld::loadBtnCallback(cocos2d::Ref *pSender)
 {
     LoadConfigManager::getInstance()->loadChapterConfig("chapter/chaper_1.json");
 }
