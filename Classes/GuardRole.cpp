@@ -30,8 +30,7 @@ bool GuardRole::initWithGuard(Guard *pGuard)
     m_isAnimation = true;
     m_currentPathIndex = 0;
     m_guard = pGuard;
-    this->setAnchorPoint(Vec2(0.5f, 0.5f));
-    this->setPosition(m_guard->getBorn());
+    this->setPosition(m_guard->getBorn() + Vec2(0, 25));
     initAnimationWithType(GuardType::GUARD_TWO);
     initSector(m_guard->getVisonL(), m_guard->getVisonR(), m_guard->getVisonA());
     this->scheduleOnce(schedule_selector(GuardRole::updateNextPostion), 3.0f);
@@ -95,14 +94,8 @@ void GuardRole::walkTo(float delta)
 {
     this->stopAllActions();
     auto curPos = this->getPosition();
-    auto pDest = m_nextPosition;
+    auto pDest = Vec2(m_nextPosition.x, 1800 - m_nextPosition.y);
     log("walk to (%f, %f)", pDest.x, pDest.y);
-    
-    if (curPos.x > pDest.x) {
-        this->setFlippedX(true);
-    }else{
-        this->setFlippedX(false);
-    }
     
     auto diff = pDest - curPos;
     auto speed = m_guard->getSpeed();
@@ -126,8 +119,8 @@ void GuardRole::walkTo(float delta)
     auto sp = Spawn::create(animate, nullptr);
     auto ac = RepeatForever::create(sp);
     
-    this->runAction(ac);
     this->runAction(seq);
+    this->runAction(ac);
 }
 
 Animate* GuardRole::getAnimationWithType(GuardActionType pType)

@@ -2,25 +2,25 @@
   "guard":[
     {
       "type": 1,    
-      "speed":10,
-      "vison":{"l":60, "r":30, "a":90},
-      "born":{"x":500, "y":500},
+      "speed":20,
+      "vison":{"l":120, "r":100, "a":70},
+      "born":{"x":436, "y":900},
       "path":[
         {
-          "faceDirection":{"x":200,"y":300},
+          "faceDirection":{"x":636,"y":700},
+          "staytime":2
+        },
+        {
+          "faceDirection":{"x":836,"y":900},
+          "staytime":3
+        },
+        {
+          "faceDirection":{"x":1036,"y":700},
+          "staytime":4
+        },
+        {
+          "faceDirection":{"x":1236,"y":900},
           "staytime":5
-        },
-        {
-          "faceDirection":{"x":500,"y":300},
-          "staytime":7
-        },
-        {
-          "faceDirection":{"x":200,"y":500},
-          "staytime":9
-        },
-        {
-          "faceDirection":{"x":300,"y":150},
-          "staytime":11
         }
       ]
     }

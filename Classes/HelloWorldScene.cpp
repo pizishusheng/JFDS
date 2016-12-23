@@ -46,16 +46,24 @@ bool HelloWorld::init()
                                 origin.y + closeItem->getContentSize().height/2));
     
     auto loadItem = MenuItemFont::create("加载数据", CC_CALLBACK_1(HelloWorld::loadBtnCallback, this));
-    loadItem->setScale(0.5f);
     loadItem->setPosition(center - Vec2(100, 0));
 
     auto readItem = MenuItemFont::create("创建守卫", CC_CALLBACK_1(HelloWorld::readBtnCallback, this));
-    readItem->setScale(0.5f);
     readItem->setPosition(center + Vec2(100, 0));
     
     auto menu = Menu::create(closeItem, loadItem, readItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+    
+//    auto test = Sprite::create("CloseNormal.png");
+//    Size mapSize = m_fastMap->getMapSize();
+//    Size tileSize = m_fastMap->getTileSize();
+//    Size contentSize = m_fastMap->getContentSize();
+//    log("mapSize -----x=%f, y=%f", mapSize.width, mapSize.height);
+//    log("tileSize ----x=%f, y=%f", tileSize.width, tileSize.height);
+//    log("contentSize -----x=%f, y=%F", contentSize.width, contentSize.height);
+//    test->setPosition(Vec2(436, 914));
+//    m_fastMap->addChild(test, 2);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
